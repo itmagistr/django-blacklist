@@ -11,7 +11,7 @@ class Command(BaseCommand):
     help = 'Trims the blacklist'
 
     def add_arguments(self, parser):
-        parser.add_argument('--ip', type=string,
+        parser.add_argument('--ip', type=str,
             help='created days ago; default: 0')
 
     def handle(self, *args, **options):
