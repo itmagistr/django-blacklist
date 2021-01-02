@@ -1,6 +1,10 @@
-image: python:latest
+stages:
+  - build
 
-run:
+image: python:alpine
+
+build:
+  stage: build
   script:
     - pip install twine
     - python setup.py sdist bdist_wheel
