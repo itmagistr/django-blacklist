@@ -1,7 +1,9 @@
 stages:
   - build
 
-image: python:alpine
+default:
+  image: python:alpine
+
 
 build:
   stage: build
