@@ -17,9 +17,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.stdout.write('Deleting expired rules')
 
-        ip = timedelta(days=options['ip'])
-
-        rules = Rule.objects.filter(address=(ip))
+        rules = Rule.objects.filter(address=(options['ip']))
 
         deleted = rules.delete()
         num_deleted = deleted[1].get('%s.%s' % (Rule._meta.app_label, Rule._meta.object_name), 0)
