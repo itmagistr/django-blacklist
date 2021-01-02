@@ -8,14 +8,14 @@ from ...models import Rule
 
 
 class Command(BaseCommand):
-    help = 'Trims the blacklist'
+    help = 'Remove an IP from the blacklist'
 
     def add_arguments(self, parser):
         parser.add_argument('--ip', type=str,
-            help='created days ago; default: 0')
+            help='IP Address to remove')
 
     def handle(self, *args, **options):
-        self.stdout.write('Deleting expired rules')
+        self.stdout.write('Deleting IP rules')
 
         rules = Rule.objects.filter(address=(options['ip']))
 
