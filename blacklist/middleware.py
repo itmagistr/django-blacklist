@@ -57,11 +57,20 @@ def blacklist_middleware(get_response):
     return middleware
 
 
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+
 def _filter_client(request, current_time):
     user = request.user
     user_id = user.id
 
-    addr = request.META['REMOTE_ADDR']
+    addr = get_client_ip(request)
 
     # no logging here, because the event will be logged either by the caller, or by django.request
 
