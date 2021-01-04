@@ -30,7 +30,10 @@ def blacklist_ratelimited(duration, block=True):
                         logger.warning('Unable to blacklist ratelimited client.')
 
                 if block:
-                    raise Ratelimited('Limited')
+                    try:
+                        raise Ratelimited('Limited')
+                    except Ratelimited as e:
+                        logger.info('Hit Ratelimit')
 
             return fn(request, *args, **kwargs)
 
