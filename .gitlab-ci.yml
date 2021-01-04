@@ -11,4 +11,4 @@ build:
     - apk add --no-cache gcc musl-dev python3-dev libffi-dev openssl-dev
     - pip install twine
     - python setup.py sdist bdist_wheel
-    - TWINE_PASSWORD=${CI_JOB_TOKEN} TWINE_USERNAME=gitlab-ci-token python -m twine upload --repository-url https://gitlab.vive.company/api/v4/projects/${CI_PROJECT_ID}/packages/pypi dist/*
+    - TWINE_PASSWORD=${CI_JOB_TOKEN} TWINE_USERNAME=gitlab-ci-token python -m twine upload --verbose --repository-url https://gitlab.vive.company/api/v4/projects/${CI_PROJECT_ID}/packages/pypi dist/*
