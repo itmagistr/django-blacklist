@@ -108,7 +108,7 @@ def _load_blacklist():
                 user_id = rule['user_id']
                 prefixlen = rule['prefixlen']
                 network = Rule(address=rule['address'], prefixlen=prefixlen).get_network()
-                until = rule['until']
+                until = rule['expire']
 
                 _add_client(user_blacklist, addr_blacklist, user_id, prefixlen, network, until)
 

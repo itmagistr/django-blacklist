@@ -41,10 +41,10 @@ class Rule(models.Model):
             return None
 
     def get_expires(self):
-        return self.created + self.duration
+        return self.expire #self.created + self.duration
 
     def is_active(self):
-        return now() < self.expire
+        return now() < self.get_expires()
 
     def clean(self):
         if not self.address:
