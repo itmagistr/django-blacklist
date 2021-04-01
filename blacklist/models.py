@@ -9,6 +9,8 @@ from django.core.exceptions import ValidationError
 
 def oneyear():
     return now()+timedelta(days=365)
+def zeroduration():
+    return timedelta(0)
 
 class Rule(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -20,7 +22,7 @@ class Rule(models.Model):
     prefixlen = models.PositiveIntegerField(null=True, blank=True,
         validators=[validators.MinValueValidator(0), validators.MaxValueValidator(128)])
 
-    duration = models.DurationField(default=0, validators=[validators.MinValueValidator(timedelta(0))])
+    duration = models.DurationField(default=zeroduration, validators=[validators.MinValueValidator(timedelta(0))])
     expire = models.DateTimeField(default=oneyear)
     comments = models.TextField(max_length=2048, blank=True)
 
