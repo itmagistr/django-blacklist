@@ -7,6 +7,8 @@ from django.utils.timezone import now
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
+def oneyear():
+    return now()+timedelta(days=365)
 
 class Rule(models.Model):
     created = models.DateTimeField(auto_now_add=True)
@@ -18,8 +20,8 @@ class Rule(models.Model):
     prefixlen = models.PositiveIntegerField(null=True, blank=True,
         validators=[validators.MinValueValidator(0), validators.MaxValueValidator(128)])
 
-    duration = models.DurationField(validators=[validators.MinValueValidator(timedelta(0))])
-
+    duration = models.DurationField(default=0, validators=[validators.MinValueValidator(timedelta(0))])
+    expire = models.DateTimeField(default=oneyear)
     comments = models.TextField(max_length=2048, blank=True)
 
     def __str__(self):
@@ -40,7 +42,7 @@ class Rule(models.Model):
         return self.created + self.duration
 
     def is_active(self):
-        return now() < self.get_expires()
+        return now() < self.expire
 
     def clean(self):
         if not self.address:

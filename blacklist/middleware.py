@@ -97,9 +97,9 @@ def _load_blacklist():
         current_time = now()
 
         if _needs_reload(current_time):
-            until = Max(F('created') + F('duration'), output_field=DateTimeField())
-            rules = Rule.objects.values('user_id', 'address', 'prefixlen').annotate(until=until)
-            rules = rules.filter(until__gt=current_time)
+            #until = Max(F('created') + F('duration'), output_field=DateTimeField())
+            #rules = Rule.objects.values('user_id', 'address', 'prefixlen').annotate(until=until)
+            rules = Rule.objects.filter(expire__gt=current_time)
 
             user_blacklist = {}
             addr_blacklist = {}
